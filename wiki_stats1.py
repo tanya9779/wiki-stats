@@ -34,14 +34,14 @@ class WikiGraph:
             total_loaded_links = 0 # будем подсчитывать кол-во для поддержания массива _offset
             for i in range(n): # загружаем статью номер i
                 s = f.readline() # буду бережно расходовать память
-                self._titles.append(s) # загрухаем название i статьи
+                self._titles.append(s.strip()) # загружаем название i статьи
                 s = f.readline()
                 (size_bytes, is_redir, outgo_link_no) = map(int,s.split()) # размер в байтах, флаг перенаправ, кол-во ссылок
                 self._sizes[i] = size_bytes
                 self._redirect[i] = is_redir
                 for j in range(outgo_link_no): # зарузим все статьи, на которые ссылается текущая статья
                     s = f.readline()
-                    self._links.append(int(s))
+                    self._links[total_loaded_links + j] = int(s.strip())
                 total_loaded_links += outgo_link_no
                 self._offset[i+1] = total_loaded_links # кол-во статей, на которые ссылается текущая (i-ая), вычисля-
                                                # естся по формуле _offset[i+1] - _offset[i]
