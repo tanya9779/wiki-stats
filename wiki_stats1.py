@@ -30,7 +30,7 @@ class WikiGraph:
             self._redirect = array.array('B', [0]*n)
             self._offset = array.array('L', [0]*(n+1))
 
-            self._offset.append(0) # вначале нужно поставить 0
+            self._offset[0] = 0 # вначале нужно поставить 0
             total_loaded_links = 0 # будем подсчитывать кол-во для поддержания массива _offset
             for i in range(n): # загружаем статью номер i
                 s = f.readline() # буду бережно расходовать память
@@ -43,7 +43,7 @@ class WikiGraph:
                     s = f.readline()
                     self._links.append(int(s))
                 total_loaded_links += outgo_link_no
-                self._offset.append(total_loaded_links) # кол-во статей, на которые ссылается текущая (i-ая), вычисля-
+                self._offset[i+1] = total_loaded_links # кол-во статей, на которые ссылается текущая (i-ая), вычисля-
                                                # естся по формуле _offset[i+1] - _offset[i]
 
 
