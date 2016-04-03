@@ -1,9 +1,9 @@
+# coding: utf-8
 #!/usr/bin/python3
 
 import os
 import sys
 import math
-import codecs
 
 import array
 
@@ -20,7 +20,7 @@ class WikiGraph:
     def load_from_file(self, filename):
         print('Загружаю граф из файла: ' + filename)
 
-        with codecs.open(filename,'r','utf-8') as f:
+        with open(filename) as f:
 
             (n, _nlinks) = map(int, f.readline().split()) # прочитать из файла кол-во статей n и кол-во ссылок _nlinks
             
